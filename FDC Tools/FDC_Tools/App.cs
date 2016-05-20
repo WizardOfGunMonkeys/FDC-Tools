@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,13 @@ namespace FDC_Tools
 {
     public class App : Application
     {
+
+        static TodoItemDatabase database;
+
         public App()
         {
             // The root page of your application
-            MainPage = new StatusMain;
+            //MainPage = new StatusMain;
             //{
             //    Content = new StackLayout
             //    {
@@ -25,7 +29,19 @@ namespace FDC_Tools
             //        }
             //    }
             //};
-
+            var nav = new NavigationPage(new StatusMain());
+            MainPage = nav;
+        }
+        public static TodoItemDatabase Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new TodoItemDatabase();
+                }
+                return database;
+            }
         }
 
         protected override void OnStart()
